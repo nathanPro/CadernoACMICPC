@@ -3,10 +3,11 @@ fuzz_time = 10
 .PHONY: fft sa test
 
 test: sa fft
+	rm fuzz.out
 
 sa:
 	cd suffix_array && $(MAKE) test
-	./suffix_array/fuzz -max_total_time=$(fuzz_time)
+	./suffix_array/fuzz -max_total_time=$(fuzz_time) 2>> fuzz.out
 fft:
 	cd fft && $(MAKE) test
-	./fft/fuzz -max_total_time=$(fuzz_time)
+	./fft/fuzz -max_total_time=$(fuzz_time) 2>> fuzz.out
