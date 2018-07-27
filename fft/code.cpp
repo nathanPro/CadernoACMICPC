@@ -76,7 +76,8 @@ struct C {
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data,
                                       size_t size) {
-    size_t K = (1 << 10);
+    const size_t bits = 6;
+    size_t K = (1 << bits);
     M::F a[K], b[K], c[K], ans[K];
 
     for (size_t i = 0; i < K; i++) a[i] = 0;
@@ -85,7 +86,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data,
     int cnt = 0;
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < 8; j++) {
-            if (cnt == 9) {
+            if (cnt + 1 == bits) {
                 a[x].x++;
                 x = 0;
                 cnt = 0;
