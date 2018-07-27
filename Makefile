@@ -4,6 +4,7 @@ fuzz_time = 10
 
 test: sa fft
 	rm fuzz.out
+	rm **/fuzz
 
 sa:
 	cd suffix_array && $(MAKE) test
