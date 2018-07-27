@@ -1,4 +1,4 @@
-fuzz_time = 10
+fuzz_runs = 2048
 
 .PHONY: fft sa test
 
@@ -8,7 +8,7 @@ test: sa fft
 
 sa:
 	cd suffix_array && $(MAKE) test
-	./suffix_array/fuzz -max_total_time=$(fuzz_time) 2>> fuzz.out
+	./suffix_array/fuzz -runs=$(fuzz_runs) 2>> fuzz.out
 fft:
 	cd fft && $(MAKE) test
-	./fft/fuzz -max_total_time=$(fuzz_time) 2>> fuzz.out
+	./fft/fuzz -runs=$(fuzz_runs) 2>> fuzz.out
