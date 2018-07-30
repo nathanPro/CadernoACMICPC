@@ -4,15 +4,15 @@ using ll = int64_t;
 
 template <typename Field> struct dft {
     using F = typename Field::F;
-    vector<size_t> p;
-    vector<F> aux;
-    template <typename It>
-    dft(It a, int n, bool inv = false) : p(n), aux(n) {
+    template <typename It> dft(It a, int n, bool inv = false) {
         assert((n & (n - 1)) == 0);
-        copy_n(a, n, begin(aux));
-        for (int i = 0; i < n; i++)
-            p[i] = (p[i >> 1] >> 1) | ((i & 1) * (n / 2));
-        for (auto i : p) a[p[i]] = aux[i];
+        {
+            vector<size_t> p(n);
+            for (int i = 0; i < n; i++)
+                p[i] = (p[i >> 1] >> 1) | ((i & 1) * (n / 2));
+            for (auto i : p)
+                if (i < p[i]) swap(a[i], a[p[i]]);
+        }
         F r = Field::nth_root(n);
         if (inv) r = Field::inv(r);
         rec(a, n, r);
