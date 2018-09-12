@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+enscript $(ls ./**/*.cpp) --highlight=cpp --language=html -o notebook.html
